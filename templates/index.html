@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="weather-container">
+        <h1>Weather Checker</h1>
+        
+        <form method="POST" action="/">
+            <input type="text" name="city" placeholder="Enter city name..." required autocomplete="off">
+            <button type="submit">Search</button>
+        </form>
+
+        {% if error %}
+            <div class="error-message">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+
+        {% if weather %}
+            <div class="weather-card">
+                <h2>{{ weather.city }}, {{ weather.country }}</h2>
+                <div class="weather-main">
+                    <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Weather icon">
+                    <p class="temperature">{{ weather.temperature }}°C</p>
+                </div>
+                <p class="description">{{ weather.description }}</p>
+
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <span>Feels like:</span>
+                        <strong>{{ weather.feels_like }}°C</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Humidity:</span>
+                        <strong>{{ weather.humidity }}%</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Wind Speed:</span>
+                        <strong>{{ weather.wind_speed }} m/s</strong>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
